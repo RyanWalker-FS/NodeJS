@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Course = require("./Course");
+
 const studentSchema = new Schema({
   name: {
     type: String,
@@ -22,12 +24,16 @@ const studentSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
       validate: {
-        validator: (value) => {
-          return Course.findOne({ _id: value });
+        validator: async (value) => {
+          const course = await Course.findById(value);
+          return course !== null;
         },
-        message: "Student must have at least one course",
+        message: "course not found",
       },
     },
   ],
+});
+studentSchema.virtual("courseTitle").get(function () {
+  return this.courses.map((course) => course.title);
 });
 module.exports = mongoose.model("Student", studentSchema);
