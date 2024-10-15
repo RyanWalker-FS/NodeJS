@@ -9,7 +9,6 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-
 /*Resubmission fixes
  - Corrected connection to MongoDB 
- - fixed issue where Postman and Compass were not communicating.
+ - fixed issue where Postman and Compass were not communicating.*/
