@@ -1,8 +1,8 @@
 const Course = require("../models/Course");
-
+const Student = require("../models/students.js");
 exports.getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find();
+    const courses = await Course.find().select("-version");
     res.json(courses);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -11,7 +11,11 @@ exports.getAllCourses = async (req, res) => {
 
 exports.getCourseById = async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findById(courseId).populate({
+      path: "students",
+      populate: { path: "courses" },
+      select: "-id name age email",
+    });
     if (!course) return res.status(404).json({ message: "Course not found" });
     res.json(course);
   } catch (error) {
@@ -52,5 +56,20 @@ exports.deleteCourse = async (req, res) => {
     res.json(deletedCourse);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+const Messages = require("../messages");
+
+exports.getCourseById = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ message: Messages.courseNotFound });
+    }
+    res.json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

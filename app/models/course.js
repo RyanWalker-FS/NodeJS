@@ -20,6 +20,12 @@ const CourseSchema = new Schema({
     type: String,
     required: true,
   },
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Course", CourseSchema);

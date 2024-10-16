@@ -1,8 +1,11 @@
 const Student = require("../models/students.js");
-
+const Course = require("../models/Course");
 exports.getAllStudents = async (req, res) => {
   try {
-    const students = await Student.find().populate("courses");
+    const students = await Student.find().populate({
+      path: "courses",
+      select: "-version",
+    });
     res.json(students);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -12,8 +15,13 @@ exports.getAllStudents = async (req, res) => {
 exports.getStudentById = async (req, res) => {
   try {
     const studentId = req.params.id;
-    const student = await Student.findById(studentId).populate("courses");
-    if (!student) return res.status(404).json({ message: "Student not found" });
+    const student = await Student.findById(studentId).populate({
+      path: "courses",
+      select: "-version",
+    });
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
     res.json(student);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -23,6 +31,12 @@ exports.getStudentById = async (req, res) => {
 exports.createStudent = async (req, res) => {
   const student = new Student(req.body);
   try {
+    const courseId = req.body.courses;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ message: messages.courseNotFound });
+    }
+    const student = new Student({ ...req.body, courses: course._id });
     const newStudent = await student.save();
     res.status(201).json(newStudent);
   } catch (error) {

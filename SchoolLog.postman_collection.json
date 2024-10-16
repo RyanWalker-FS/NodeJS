@@ -1,162 +1,142 @@
 {
-	"info": {
-		"_postman_id": "960a4c6c-f5a3-4769-b7c0-db06956dfcf8",
-		"name": "SchoolLog",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38077294"
-	},
-	"item": [
-		{
-			"name": "Courses",
-			"item": [
-				{
-					"name": "Get All Courses",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/courses/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"courses",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Course By Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/courses/670d3fc4b171ec30db512275",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"courses",
-								"670d3fc4b171ec30db512275"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Post New Course",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\":\"WebDev\",\n    \"description\":\"Fundamentals about wev development and 1's and 0's.\",\n    \"credits\":3,\n    \"instructor\":\"Jeromy\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/courses/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"courses",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Course",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {",
-									"  pm.response.to.have.status(200);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Response time is less than 500ms\", function () {",
-									"  pm.expect(pm.response.responseTime).to.be.below(500);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Validate the response schema for the updated course data\", function () {",
-									"    const responseData = pm.response.json();",
-									"    ",
-									"    pm.expect(responseData).to.be.an('object');",
-									"    pm.expect(responseData.courseId).to.be.a('string');",
-									"    pm.expect(responseData.courseName).to.be.a('string');",
-									"    pm.expect(responseData.instructor).to.be.a('string');",
-									"    pm.expect(responseData.students).to.be.an('array');",
-									"    pm.expect(responseData.students.length).to.be.at.least(0);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"name\":\"Marine Biology\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/courses/670d3fc4b171ec30db512275",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"courses",
-								"670d3fc4b171ec30db512275"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Course",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Students",
-			"item": [
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "960a4c6c-f5a3-4769-b7c0-db06956dfcf8",
+    "name": "SchoolLog",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38077294"
+  },
+  "item": [
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Get All Courses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/courses/",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["courses", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Course By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/courses/670d3fc4b171ec30db512275",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["courses", "670d3fc4b171ec30db512275"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post New Course",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\":\"WebDev\",\n    \"description\":\"Fundamentals about wev development and 1's and 0's.\",\n    \"credits\":3,\n    \"instructor\":\"Jeromy\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/courses/",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["courses", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Course",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 500ms\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Validate the response schema for the updated course data\", function () {",
+                  "    const responseData = pm.response.json();",
+                  "    ",
+                  "    pm.expect(responseData).to.be.an('object');",
+                  "    pm.expect(responseData.courseId).to.be.a('string');",
+                  "    pm.expect(responseData.courseName).to.be.a('string');",
+                  "    pm.expect(responseData.instructor).to.be.a('string');",
+                  "    pm.expect(responseData.students).to.be.an('array');",
+                  "    pm.expect(responseData.students.length).to.be.at.least(0);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Marine Biology\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/courses/670d3fc4b171ec30db512275",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["courses", "670d3fc4b171ec30db512275"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Course",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
