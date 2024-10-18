@@ -2,7 +2,15 @@ const Course = require("../models/Course");
 const Student = require("../models/students.js");
 exports.getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find().select("-version");
+    const creditsGt = req.query.creditsGt;
+    const creditsLt = req.query.creditsLt;
+    const courses = await Course.find({
+      credits: { $gt: creditsGt, $lt: creditsLt },
+    }).populate({
+      path: "students",
+      model: "Student",
+      select: "-id name age email",
+    });
     res.json(courses);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -2,9 +2,11 @@ const Student = require("../models/students.js");
 const Course = require("../models/Course");
 exports.getAllStudents = async (req, res) => {
   try {
-    const students = await Student.find().populate({
+    const select = req.query.select;
+    const sort = req.query.sort;
+    const students = await Student.find().select(select).sort(sort).populate({
       path: "courses",
-      select: "-version",
+      select: "name age email",
     });
     res.json(students);
   } catch (error) {
